@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Private Investigator</title>
+
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;          /* no scrollbars */
+      background: #000;          /* no white margins */
+    }
+    body { overscroll-behavior: none; }
+
+    /* Fullscreen stage */
+    .stage {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #000;
+      overflow: hidden;
+    }
+
+    /* Background video layer */
+    #video-background {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Force VideoSuite responsive wrapper to true fullscreen */
+    .iv-player_responsive_padding {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      padding: 0 !important;     /* kill aspect padding trick */
+      margin: 0 !important;
+      background: #000;
+    }
+    .iv-player_responsive_wrapper,
+    .iv-player_embed {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      margin: 0 !important;
+    }
+    .iv-player_embed iframe,
+    .iv-player_embed video,
+    .iv-player_embed ._vs_ictr_player {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      border: 0 !important;
+      display: block;
+      background: #000;
+    }
+
+    /* Swatch should cover */
+    .iv-player_swatch img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      display: block;
+      background: #000;
+      filter: blur(5px);
+    }
+
+    /* Foreground form overlay */
+    #form-container {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      z-index: 10;
+      pointer-events: none;
+      padding: 24px;
+    }
+
+    #password-form {
+      pointer-events: auto;
+      text-align: center;
+      color: #fff;
+      font-family: "Courier New", Courier, monospace;
+      text-shadow: 2px 2px 4px rgba(0,0,0,1);
+      transform: translateY(48px); /* keeps your “lower” placement feel */
+    }
+
+    #password-form label {
+      display: block;
+      font-size: clamp(28px, 4vw, 52px);
+      margin-bottom: 14px;
+    }
+
+    #password-input {
+      width: min(560px, 84vw);
+      height: 54px;
+      font-size: 22px;
+      padding: 10px 14px;
+      border: none;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      outline: none;
+    }
+
+    #submit-button {
+      background: #666;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0px 1px 1px #111111;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    #submit-button:hover { background: #999; }
+  </style>
+
+  <!-- VideoSuite loader (kept in <head> so it reliably runs) -->
+  <script type="text/javascript" src="https://videosuite-player-wrapper.vercel.app/assets" async></script>
+</head>
+
+<body>
+  <main class="stage">
+
+    <!-- BACKGROUND VIDEO -->
+    <div id="video-background" aria-hidden="true">
+      <div class="iv-player_responsive_padding" data-hash="65dde917000de">
+        <div class="iv-player_responsive_wrapper">
+          <div class="iv-player_embed iv-player_async_p2z7746nud" style="videoFoam=true">
+            <div class="iv-player_swatch">
+              <img
+                src="https://vz-5b49b1a0-718.b-cdn.net/c35e002c-7d18-41b1-88f2-597ff3467264/thumbnail.jpg"
+                alt=""
+                aria-hidden="true"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORM OVERLAY -->
+    <div id="form-container">
+      <form id="password-form">
+        <label for="password-input">Who Sent You?</label>
+        <input
+          type="text"
+          id="password-input"
+          name="password"
+          autofocus
+          placeholder="Enter Full Name"
+          autocomplete="off"
+          autocapitalize="none"
+          spellcheck="false"
+        />
+        <div>
+          <button type="submit" id="submit-button">Submit</button>
+        </div>
+      </form>
+    </div>
+
+  </main>
+
+  <script>
+    const form = document.getElementById("password-form");
+    const input = document.getElementById("password-input");
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const password = (input.value || "").trim().toLowerCase();
+
+      if (password === "buddy stump") {
+        window.location.href =
+          "https://wm3-pi-in.rkirk.workers.dev/";
+      } else if (password === "bobby butters") {
+        window.location.href =
+          "https://wm3-pi-out.rkirk.workers.dev/";
+      } else if (password === "green") {
+        window.location.href =
+          "https://sites.google.com/shelbyed.org/gas-chromatography/green-fiber-processing";
+      } else {
+        window.location.href =
+          "https://accessdenied2026.netlify.app";
+      }
+    });
+  </script>
+</body>
+</html>
